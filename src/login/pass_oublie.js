@@ -75,6 +75,7 @@ export default function Oublie() {
               autoFocus
               value={email}
               onChange={(e)=>{setEmail(e.target.value)}}
+              helperText={emailError && emailError}
             />
       
             <Button

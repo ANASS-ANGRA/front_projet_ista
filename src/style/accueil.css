@@ -1,0 +1,29 @@
+#Accueill{
+    display: flex;
+    flex-direction: row;
+}
+#text_accueil{
+    padding: 5%;
+   text-align: center;
+   text-decoration:solid;
+   font-style: italic;
+   font-size: 130%;
+   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#image_accueil{
+    margin-right: 0.5%;
+    width: 40%;
+}
+@media (max-width: 600px){
+    #text_accueil{
+        padding: 5%;
+       text-align: center;
+       text-decoration:solid;
+       font-style: italic;
+       font-size: 130%;
+       font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #image_accueil{
+       display: none;
+    }
+}

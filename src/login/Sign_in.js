@@ -83,7 +83,9 @@ export default function SignIn() {
               autoFocus
               value={email}
               onChange={(e)=>{setEmail(e.target.value)}}
+              helperText={emailError && emailError}
             />
+    
             
             <TextField
               margin="normal"
@@ -96,6 +98,7 @@ export default function SignIn() {
               autoComplete="current-password"
               value={password}
               onChange={(e)=>{setPassword(e.target.value)}}
+              helperText={passwordError && passwordError}
             />
       
             <Button
@@ -113,18 +116,6 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
-            {emailError &&    <Grid container>
-              <Grid item xs>
-                  {emailError}
-
-              </Grid>
-            </Grid>}
-            {passwordError &&    <Grid container>
-              <Grid item xs>
-                  {passwordError}
-
-              </Grid>
-            </Grid>}
           </Box>
         </Box>
       </Container>
