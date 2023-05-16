@@ -1,0 +1,14 @@
+#profile_admin{
+    display: flex;
+    flex-direction: row;
+}
+#post_admin{
+    width: 60%;
+    margin-left: 40%;
+ 
+}
+
+#post_admin_{
+    margin-left: 20%;
+    margin-right: 20%;
+}
