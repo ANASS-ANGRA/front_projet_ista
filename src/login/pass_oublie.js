@@ -12,15 +12,14 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import EmailIcon from '@mui/icons-material/Email';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 
 
 const theme = createTheme();
-
-export default function Oublie() {
-   
+ function Pass_oublie(){
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,8 +43,8 @@ export default function Oublie() {
         event.preventDefault()
        validateEmail()
   }
- 
-  return (
+
+  return(
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -55,15 +54,16 @@ export default function Oublie() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            marginTop:"40%"
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <EmailIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Email
           </Typography>
-          <Box component="form"  onSubmit={handleSubmit} noValidate sx={{ mt: 4 }}>
+          <Box component="form"  onSubmit={handleSubmit} Validate sx={{width:"100%"}}>
             <TextField
               margin="normal"
               required
@@ -97,5 +97,9 @@ export default function Oublie() {
         </Box>
       </Container>
     </ThemeProvider>
+    
   )
-        }
+ }
+
+
+   export default Pass_oublie

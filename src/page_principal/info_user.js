@@ -4,6 +4,7 @@ import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 import "../style/info_user.css"
+import Nav_bar from '../Nav_bar';
 
 
 function Info_user(){
@@ -30,6 +31,7 @@ function Info_user(){
     }
 
     return(
+
   <div id='page_info'>
     <div id="page_info1">
      <div id='info'>

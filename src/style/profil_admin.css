@@ -12,3 +12,19 @@
     margin-left: 20%;
     margin-right: 20%;
 }
+
+
+@media (max-width: 600px){
+   #profile_admin{
+     flex-direction: column
+   }
+   #post_admin{
+    width: 100%;
+   margin-left: 0%;
+   
+   }
+   #post_admin_{
+    margin-left: 0%;
+    margin-right: 0%;
+}
+}

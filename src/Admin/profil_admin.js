@@ -14,10 +14,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from "react";
+import Nav_bar from "../Nav_bar";
 
 
 function Profil_admin(){
-
       const post=[
         {
             title:"test",
@@ -94,6 +94,8 @@ function Profil_admin(){
 
 
     return(
+      <div>
+        <Nav_bar/>
         <div id="profile_admin">
             <Info_user/>
 
@@ -120,7 +122,7 @@ function Profil_admin(){
           <div id="post_admin_">
             {
                 post?.map((p)=>(
-                    <Box sx={{ ...commonStyles, borderRadius: '16px' }} >
+                    <Box sx={{ ...commonStyles, borderRadius: '16px'}} >
                     <CardContent>
                  
                     <Typography variant="h5" component="div">
@@ -168,6 +170,7 @@ function Profil_admin(){
             
           </div>
             </div>
+        </div>
         </div>
     )
 }

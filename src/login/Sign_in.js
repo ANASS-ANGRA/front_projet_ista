@@ -5,13 +5,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Api_base from '../api';
+import { useDispatch } from 'react-redux';
+import { Token_s } from '../store/profil';
+
 
 
 
@@ -25,6 +30,8 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const disptche= useDispatch()
+  const Nav= useNavigate()
 
   function validateEmail() {
     // This regular expression checks if the email is in a valid format
@@ -51,6 +58,24 @@ export default function SignIn() {
         event.preventDefault()
        validateEmail()
        validatePassword()
+       if (!emailError && !passwordError) {
+        const data={
+           email:email,
+           password:password
+         } 
+         axios.post(`${Api_base}login`,data).then((Response)=>{
+          if(Response.data.message=="connected"){
+            disptche(Token_s(Response.data.token))
+            localStorage.setItem('token',Response.data.token);
+            Nav("/")
+         }else if(Response.data.message=="password incorrect"){
+           setPasswordError(Response.data.message)
+         }else if(Response.data.message=="email incorrect") {
+            setEmailError("email incorrect")
+         }
+        })
+
+        }
   }
  
   return (
@@ -59,10 +84,11 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 12,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+  
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -85,8 +111,6 @@ export default function SignIn() {
               onChange={(e)=>{setEmail(e.target.value)}}
               helperText={emailError && emailError}
             />
-    
-            
             <TextField
               margin="normal"
               required
@@ -111,7 +135,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link to="/recuper password" style={{ color: 'blue' }}>
                   Forgot password?
                 </Link>
               </Grid>

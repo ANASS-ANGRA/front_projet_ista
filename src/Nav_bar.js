@@ -14,6 +14,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from 'react-router-dom';
 
@@ -36,7 +38,7 @@ export default function Nav_bar(props) {
       </Typography>
       <Divider />
       <List >
-        <Link to="/accueil">
+        <Link to="/">
           <ListItem  disablePadding>
             <ListItemButton sx={{ textAlign: 'center' , color:"black" }}>
                <HomeIcon/>
@@ -44,7 +46,23 @@ export default function Nav_bar(props) {
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link to="/accueil">
+        <Link to="/posts">
+          <ListItem  disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' , color:"black" }}>
+            <MailOutlineIcon/>
+              <ListItemText primary=" Posts" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/new post">
+          <ListItem  disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' , color:"black" }}>
+            <PostAddIcon/>
+              <ListItemText primary="new post" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to="/profile_user">
           <ListItem  disablePadding>
             <ListItemButton sx={{ textAlign: 'center' , color:"black" }}>
             <AccountCircle/>
@@ -81,12 +99,19 @@ export default function Nav_bar(props) {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } , backgroundColor: "black"}}>
             
-             <Link to="/accueil">
+             <Link to="/">
                 <Button  sx={{ color: '#fff' }}><HomeIcon/>Accueil</Button>
             </Link>
-            <Link to="/profil">
+            <Link to="/posts">
+            <Button sx={{ color: '#fff' }}><MailOutlineIcon/> Posts</Button>
+            </Link>
+            <Link to="/new post">
+            <Button sx={{ color: '#fff' }}><PostAddIcon/> new post</Button>
+            </Link>
+            <Link to="/profile_user">
             <Button sx={{ color: '#fff' }}><AccountCircle/> Profil</Button>
             </Link>
+         
            
           </Box>
         </Toolbar>

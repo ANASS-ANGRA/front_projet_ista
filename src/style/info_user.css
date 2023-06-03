@@ -3,6 +3,7 @@
   flex-direction:row ;
   width: 40%;
   position: fixed;
+
  
 }
 #page_info1{
@@ -20,3 +21,12 @@
 .info_change{
     text-transform: capitalize;
 }
+
+@media (max-width: 600px){
+    #page_info{
+        display: flex;
+        flex-direction:row ;
+        width: 100%;
+        position: relative;
+      }
+ }
