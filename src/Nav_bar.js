@@ -17,8 +17,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import HomeIcon from '@mui/icons-material/Home';
+import GroupsIcon from '@mui/icons-material/Groups';
 import { Link } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
 
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Contact'];
@@ -30,6 +31,10 @@ export default function Nav_bar(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
+  const utilisateur = useSelector(state=>state.profil?.info_p?.utilisateur)
+  const admin = utilisateur == "admin"
+  const user = utilisateur !== "admin"
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center',}}>
@@ -104,13 +109,29 @@ export default function Nav_bar(props) {
             </Link>
             <Link to="/posts">
             <Button sx={{ color: '#fff' }}><MailOutlineIcon/> Posts</Button>
+        
             </Link>
-            <Link to="/new post">
+            {
+              admin &&
+              <>
+              <Link to="/new post">
             <Button sx={{ color: '#fff' }}><PostAddIcon/> new post</Button>
             </Link>
+            <Link>
+            <Button sx={{ color: '#fff' }}><GroupsIcon/> suivi </Button>
+            </Link>
+              <Link to="/profile_admin">
+              <Button sx={{ color: '#fff' }}><AccountCircle/> Profil</Button>
+              </Link>
+              </>
+            }
+            {
+              user &&
             <Link to="/profile_user">
             <Button sx={{ color: '#fff' }}><AccountCircle/> Profil</Button>
             </Link>
+            }
+            
          
            
           </Box>

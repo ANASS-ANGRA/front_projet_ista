@@ -31,8 +31,7 @@ function N_post(){
         dispatch(fetch_filiers())
      },[])
    // const filiers = [{"id":1,"code_filier":"dev","nom_filier":"developpement digital","created_at":null,"updated_at":null},{"id":2,"code_filier":"test1","nom_filier":"test1","created_at":null,"updated_at":null},{"id":3,"code_filier":"test2","nom_filier":"test2","created_at":null,"updated_at":null},{"id":4,"code_filier":"test3","nom_filier":"test3","created_at":null,"updated_at":null},{"id":5,"code_filier":"test4","nom_filier":"test4","created_at":null,"updated_at":null},{"id":6,"code_filier":"test5","nom_filier":"trst5","created_at":null,"updated_at":null}]
-
- 
+  
 
     function  ajouter(e){
          e.preventDefault()  
@@ -43,9 +42,9 @@ function N_post(){
          formData.append('info', e.target.Info.value);
          formData.append('type', type);
          formData.append('filier', fl);
-        const token = "1|a71WdOe17sXZD3szQ4F8dqcOzawukt650jeGQVv5";
+
         const headers = {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         };
         console.log(formData)
       axios.post(`${Api_base}ajouter_post`,formData ,{headers}).then((response)=>{
@@ -56,7 +55,7 @@ function N_post(){
       })  
     }
 
-    console.log(showSuccessAlert)
+    
  if(loading){
     return(
       <Loading/>
@@ -79,7 +78,7 @@ function N_post(){
         {  
         showSuccessAlert &&
         <Stack sx={{ width: '100%' }} spacing={2}>
-        <Alert severity="success">le post envoyer </Alert>
+        <Alert severity="success" >le post envoyer </Alert>
         </Stack>
 }
           <TextField

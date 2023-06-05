@@ -8,25 +8,76 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useState } from "react";
-
-
-
-
+import { useState ,useEffect } from "react";
+import Loading from "./loading";
+import { useDispatch ,useSelector} from "react-redux";
+import { fetch_filier, fetch_info_personne, fetch_status, mon_status, supp_token } from '../store/profil';
+import { indigo } from "@mui/material/colors";
+import axios from "axios";
+import Api_base from "../api";
+import { Email } from "@mui/icons-material";
+import { Stack, Alert } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 
 function Profile_user(){
         const [type,setType]=useState()
-        const [email , setEmail]= useState("anassangra2003@gmail.com")
-        const [telephone ,setTelephone]=useState('0603250453')
-        const [local ,SetLocal]=useState("isicode")
+        const [email , setEmail]= useState("")
+        const [telephone ,setTelephone]=useState('')
+        const [local ,SetLocal]=useState("")
+        const info = useSelector(state=>state.profil.info_p)
+        const status = useSelector(state=>state.profil.status)
+        const loading = useSelector(state => state.profil.loading)
+        const status_p = useSelector(state => state.profil.status_p)
+        const [showSuccessAlert,setShowSuccessAlert]=useState(false)
+        const disptch =useDispatch()
+        const Nav= useNavigate()
+        useEffect(()=>{
+           disptch(fetch_info_personne())
+           disptch(fetch_status())
+           disptch(fetch_filier())
+           disptch(mon_status())
+        },[])
+        useEffect(()=>{
+          setEmail(info?.email_professionnel)
+          setTelephone(info?.telephone)
+          SetLocal(status_p?.local)
+          setType(status_p?.status_id)
+          console.log(info)
+          console.log(status_p)
+        },[info , status_p])
 
-
+        function update_info(e){
+          e.preventDefault()
+          const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          };
+          const data={
+            email_professionnel:email,
+            telephone:telephone,
+            status_id:type,
+            local:local
+          }
+          console.log(data)
+          axios.post(`${Api_base}update_info`,data ,{headers}).then((response)=>{
+             if(response.data=="change"){
+              disptch(fetch_info_personne())
+              setShowSuccessAlert(true)
+             }
+          })
+        }
+ 
+       
+  if(loading){
+    return(
+       <Loading/>
+    )
+  }
 
     return(
         <div>
              <Nav_bar/>
-             <div >
+             <div>
                 <Info_user/>
                 <div id="page_info_stagire"> 
                 <Box
@@ -37,7 +88,13 @@ function Profile_user(){
           alignItems: 'center',
         }}
       >
-        <Box component="form"   Validate sx={{width:"50%" ,  '@media (max-width: 600px)': { width: '70%' },}}>
+        <Box component="form" onSubmit={update_info}   Validate sx={{width:"50%" ,  '@media (max-width: 600px)': { width: '70%' },}}>
+        {  
+        showSuccessAlert &&
+        <Stack sx={{ width: '100%' }} spacing={2}>
+        <Alert severity="success">info update </Alert>
+        </Stack>
+}
           <TextField
               margin="normal"
               variant="standard"
@@ -78,9 +135,9 @@ function Profile_user(){
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {status?.map((s)=> (
+            <MenuItem value={s.id}>{s.type}</MenuItem>
+          ))}
         </Select>
       </FormControl>
       <TextField
